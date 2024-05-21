@@ -6,10 +6,12 @@
             "request": "launch",
             "name": "Debug Mode",
             "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
-            "program": "${workspaceFolder}/src/index.ts",
+            "program": "${workspaceFolder}/src/index.js",
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
+            "sourceMaps": true, 
+            "cwd": "${workspaceFolder}",
             "args": [
                 "-e",
                 "ts",
