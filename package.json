@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf dist",
     "start": "npm run build && node dist/index.js",
     "watch": "nodemon -e ts --exec \"npm run start\"",
-    "build": "npx tsc"
+    "build": "npm run clean && npx tsc"
   },
   "keywords": [],
   "author": "",
