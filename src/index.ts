@@ -1,11 +1,10 @@
 import express, { Request, Response } from "express";
 import { config } from "./helpers/config";
+import loadRoutes from "./routes";
 
 const app = express();
 
-app.get("/", (request: Request, response: Response) => {
-  response.status(200).send("Hello World");
-});
+loadRoutes(app);
 
 app.listen(config.PORT, () => {
   console.log("Service running on:", config.PORT);
