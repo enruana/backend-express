@@ -3,7 +3,11 @@ import { usersService } from "../services/users.service";
 
 export const handleGetUsers = async (req: Request, res: Response) => {
 
-    res.send(await usersService.getUsers());
+    try {
+        res.send(await usersService.getUsers());
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
 
 }
 
