@@ -1,6 +1,6 @@
 import { Application } from "express";
 
-export const healthCheckRoutes = async (app: Application) => {;
+export const healthCheckRoutes = (app: Application) => {;
 
     app.get("/health-check", (req, res) => {
         // check if the DB is connected

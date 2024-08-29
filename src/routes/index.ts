@@ -1,23 +1,11 @@
 import { Application } from 'express';
 import { healthCheckRoutes } from './health-checks';
+import v1Routes from './v1';
 
-export default async (app: Application) => {
+export default (app: Application) => {
 
     healthCheckRoutes(app);
 
-    app.get("/user", (req, res) => {
-        res.send('Got a GET request at /user')
-    });
+    app.use('/api/v1', v1Routes);
 
-    app.post('/user', (req, res) => {
-        res.send('Got a POST request at /user')
-    })
-
-    app.put('/user', (req, res) => {
-        res.send('Got a PUT request at /user')
-    })
-
-    app.delete('/user', (req, res) => {
-        res.send('Got a DELETE request at /user')
-    })
 }
