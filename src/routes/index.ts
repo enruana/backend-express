@@ -1,6 +1,10 @@
 import { Application } from 'express';
+import { healthCheckRoutes } from './health-checks';
 
 export default async (app: Application) => {
+
+    healthCheckRoutes(app);
+
     app.get("/user", (req, res) => {
         res.send('Got a GET request at /user')
     });
