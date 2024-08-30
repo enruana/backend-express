@@ -9,5 +9,8 @@ export const Bookings = {
     },
     findByUserId: async (userId: string) => {
         return mockData.db.bookings.filter(booking => booking.user_id === userId)
+    },
+    findByServiceId: async (serviceId: string) => {
+        return mockData.db.bookings.filter(booking => booking.service_id === serviceId)
     }
 }
