@@ -24,3 +24,16 @@ export const handleGetUserById = async (req: Request, res: Response) => {
         res.status(500).send("Internal Server Error");
     }
 }
+
+
+export const handleGetUserBookings = async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.userId;
+        const userBookings = await usersService.getUserBookings(userId);
+        res.send({
+            data: userBookings
+        });
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+}

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppRoute } from "../../interfaces/routes.interface";
-import { handleGetUserById, handleGetUsers } from "../../controllers/users.controller";
+import { handleGetUserBookings, handleGetUserById, handleGetUsers } from "../../controllers/users.controller";
 
 
 export const userRoutes: AppRoute[] = [
@@ -13,5 +13,10 @@ export const userRoutes: AppRoute[] = [
         path: '/users/:userId',
         method: 'get',
         handler: handleGetUserById
+    },
+    {
+        path: '/users/:userId/bookings',
+        method: 'get',
+        handler: handleGetUserBookings
     }
 ]
