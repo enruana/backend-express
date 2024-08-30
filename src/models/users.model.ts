@@ -1,7 +1,10 @@
 import { mockData } from "../data/mockData"
 
 export const Users = {
-    find: async () => {
+    findAll: async () => {
         return mockData.db.users
     },
+    findById: async (userId: string) => {
+        return mockData.db.users.find(user => user.id === userId)
+    }
 }
