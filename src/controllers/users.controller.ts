@@ -24,13 +24,21 @@ export const handleGetUsers = async (req: Request, res: Response) => {
 
   // Extract query parameters
   Object.keys(req.query).forEach((key) => {
-    if (key === "sort") return; // Skip sort parameter
+    if (key === "sort" || key === "page" || key === "limit") return; // Skip sort parameter
 
     filterOptions[key] = req.query[key];
   });
 
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+
   try {
-    const users = await usersService.getUsers(sortOptions, filterOptions);
+    const users = await usersService.getUsers(
+      sortOptions,
+      filterOptions,
+      page,
+      limit
+    );
     res.send({
       data: users,
     });

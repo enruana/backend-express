@@ -3,7 +3,9 @@ import { mockData } from "../data/mockData";
 export const Users = {
   findAll: async (
     sortOptions?: { [key: string]: string },
-    filterOptions?: { [key: string]: any }
+    filterOptions?: { [key: string]: any },
+    page: number = 1,
+    limit: number = 10
   ) => {
     let users = mockData.db.users;
 
@@ -38,7 +40,23 @@ export const Users = {
       });
     }
 
-    return users;
+    // Calculate pagination
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const totalPages = Math.ceil(users.length / limit);
+
+    // Get paginated results
+    const paginatedUsers = users.slice(startIndex, endIndex);
+
+    return {
+      items: paginatedUsers,
+      pagination: {
+        total: users.length,
+        totalPages,
+        currentPage: page,
+        limit
+      }
+    };
   },
   findById: async (userId: string) => {
     return mockData.db.users.find((user) => user.id === userId);

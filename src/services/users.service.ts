@@ -3,9 +3,11 @@ import { Bookings } from "../models/bookings.model";
 
 const getUsers = async (
   sortOptions?: { [key: string]: string },
-  filterOptions?: { [key: string]: any }
+  filterOptions?: { [key: string]: any },
+  page: number = 1,
+  limit: number = 10
 ) => {
-  return await Users.findAll(sortOptions, filterOptions);
+  return await Users.findAll(sortOptions, filterOptions, page, limit);
 };
 
 const getUserById = async (userId: string) => {
