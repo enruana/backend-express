@@ -1,21 +1,23 @@
-import { Users } from "../models/users.model"
-import { Bookings } from "../models/bookings.model"
+import { Users } from "../models/users.model";
+import { Bookings } from "../models/bookings.model";
 
-const getUsers = async (sortOptions?: { [key: string]: string }) => {
-    return await Users.findAll(sortOptions);
-}
+const getUsers = async (
+  sortOptions?: { [key: string]: string },
+  filterOptions?: { [key: string]: any }
+) => {
+  return await Users.findAll(sortOptions, filterOptions);
+};
 
 const getUserById = async (userId: string) => {
-    return await Users.findById(userId);
-}
+  return await Users.findById(userId);
+};
 
 const getUserBookings = async (userId: string) => {
-    return await Bookings.findByUserId(userId);
-}
-
+  return await Bookings.findByUserId(userId);
+};
 
 export const usersService = {
-    getUsers,
-    getUserById,
-    getUserBookings
-}
+  getUsers,
+  getUserById,
+  getUserBookings,
+};

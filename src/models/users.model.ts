@@ -1,7 +1,10 @@
 import { mockData } from "../data/mockData";
 
 export const Users = {
-  findAll: async (sortOptions?: { [key: string]: string }) => {
+  findAll: async (
+    sortOptions?: { [key: string]: string },
+    filterOptions?: { [key: string]: any }
+  ) => {
     let users = mockData.db.users;
 
     if (sortOptions) {
@@ -18,12 +21,20 @@ export const Users = {
 
             // For ascending: return 1 if a > b, -1 if a < b
             // For descending: return 1 if b > a, -1 if b < a
-            return isAscending ? (isGreater ? 1 : -1) : (isGreater ? -1 : 1);
+            return isAscending ? (isGreater ? 1 : -1) : isGreater ? -1 : 1;
           }
         }
 
         // All compared fields were equal
         return 0;
+      });
+    }
+
+    if (filterOptions) {
+      users = users.filter((user) => {
+        return Object.entries(filterOptions).every(([key, value]) => {
+          return user[key as keyof typeof user] === value;
+        });
       });
     }
 

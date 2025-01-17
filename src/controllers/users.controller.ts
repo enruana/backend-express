@@ -2,7 +2,6 @@ import { Response, Request } from "express";
 import { usersService } from "../services/users.service";
 
 export const handleGetUsers = async (req: Request, res: Response) => {
-
   const sortParam = req.query.sort as string;
   let sortOptions: { [key: string]: string } = {};
 
@@ -20,8 +19,18 @@ export const handleGetUsers = async (req: Request, res: Response) => {
     });
   }
 
+  // Initialize filter options object
+  let filterOptions: { [key: string]: any } = {};
+
+  // Extract query parameters
+  Object.keys(req.query).forEach((key) => {
+    if (key === "sort") return; // Skip sort parameter
+
+    filterOptions[key] = req.query[key];
+  });
+
   try {
-    const users = await usersService.getUsers(sortOptions);
+    const users = await usersService.getUsers(sortOptions, filterOptions);
     res.send({
       data: users,
     });
