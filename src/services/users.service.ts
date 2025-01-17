@@ -1,8 +1,8 @@
 import { Users } from "../models/users.model"
 import { Bookings } from "../models/bookings.model"
 
-const getUsers = async () => {
-    return await Users.findAll();
+const getUsers = async (sortOptions?: { [key: string]: string }) => {
+    return await Users.findAll(sortOptions);
 }
 
 const getUserById = async (userId: string) => {
