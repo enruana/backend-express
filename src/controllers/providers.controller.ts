@@ -1,9 +1,16 @@
 import { Response, Request } from "express";
 import { providersService } from "../services/providers.service";
+import { extractQueryOptions } from "../utils/controller.utils";
 
 export const handleGetProviders = async (req: Request, res: Response) => {
     try {
-        const providers = await providersService.getProviders();
+        const { sortOptions, filterOptions, page, limit } = extractQueryOptions(req);
+        const providers = await providersService.getProviders(
+            sortOptions,
+            filterOptions,
+            page,
+            limit
+        );
         res.send({
             data: providers,
         });
