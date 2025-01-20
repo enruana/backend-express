@@ -1,38 +1,10 @@
 import { Response, Request } from "express";
 import { usersService } from "../services/users.service";
+import { extractQueryOptions } from "../utils/controller.utils";
 
 export const handleGetUsers = async (req: Request, res: Response) => {
-  const sortParam = req.query.sort as string;
-  let sortOptions: { [key: string]: string } = {};
-
-  if (sortParam) {
-    // Split multiple sort fields (e.g. "name:asc,created_at:desc")
-    const sortFields = sortParam.split(",");
-
-    // Process each sort field
-    sortFields.forEach((field) => {
-      const [key, direction] = field.split(":");
-      // Validate direction is either asc or desc
-      if (direction && ["asc", "desc"].includes(direction.toLowerCase())) {
-        sortOptions[key] = direction.toLowerCase();
-      }
-    });
-  }
-
-  // Initialize filter options object
-  let filterOptions: { [key: string]: any } = {};
-
-  // Extract query parameters
-  Object.keys(req.query).forEach((key) => {
-    if (key === "sort" || key === "page" || key === "limit") return; // Skip sort parameter
-
-    filterOptions[key] = req.query[key];
-  });
-
-  const page = parseInt(req.query.page as string) || 1;
-  const limit = parseInt(req.query.limit as string) || 10;
-
   try {
+    const { sortOptions, filterOptions, page, limit } = extractQueryOptions(req);
     const users = await usersService.getUsers(
       sortOptions,
       filterOptions,

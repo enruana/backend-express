@@ -1,9 +1,14 @@
 import { Services } from "../models/services.model";
- import { Ratings } from "../models/ratings.model";
- import { Bookings } from "../models/bookings.model";
+import { Ratings } from "../models/ratings.model";
+import { Bookings } from "../models/bookings.model";
 
-const getServices = async () => {
-    return await Services.findAll();
+const getServices = async (
+    sortOptions?: { [key: string]: string },
+    filterOptions?: { [key: string]: any },
+    page: number = 1,
+    limit: number = 10
+) => {
+    return await Services.findAll(sortOptions, filterOptions, page, limit);
 }
 
 const getServiceById = async (serviceId: string) => {

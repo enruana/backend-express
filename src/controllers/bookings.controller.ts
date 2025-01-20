@@ -1,9 +1,16 @@
 import { Response, Request } from "express";
 import { bookingsService } from "../services/bookings.service";
+import { extractQueryOptions } from "../utils/controller.utils";
 
 export const handleGetBookings = async (req: Request, res: Response) => {
     try {
-        const bookings = await bookingsService.getBookings();
+        const { sortOptions, filterOptions, page, limit } = extractQueryOptions(req);
+        const bookings = await bookingsService.getBookings(
+            sortOptions,
+            filterOptions,
+            page,
+            limit
+        );
         res.send({
             data: bookings,
         });
